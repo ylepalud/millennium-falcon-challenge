@@ -2,6 +2,7 @@ package org.example.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.example.domain.model.Edge;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,9 +16,7 @@ class EdgeTest {
     // When
     assertThrows(NullPointerException.class, () -> new Edge(null, "destination", 1));
     assertThrows(NullPointerException.class, () -> new Edge("origin", null, 1));
-    assertThrows(
-        IllegalArgumentException.class,
-        () -> new Edge("origin", "destination", -1));
+    assertThrows(IllegalArgumentException.class, () -> new Edge("origin", "destination", -1));
 
     // Then
   }

@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.example.infrastructure.model.Route;
-import org.example.model.Edge;
 
 public class SqlLiteConnection {
 
@@ -70,5 +68,4 @@ public class SqlLiteConnection {
 
     return rows;
   }
-
 }
