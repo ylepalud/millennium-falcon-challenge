@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+    id "com.diffplug.spotless"
+}
+
+group = 'org.example'
+version = 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation libs.bundles.unit.test
+}
+
+test {
+    useJUnitPlatform()
+}

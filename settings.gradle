@@ -1,0 +1,16 @@
+pluginManagement {
+    plugins {
+        id "com.diffplug.spotless" version "6.25.0"
+    }
+}
+
+rootProject.name = 'millennium-falcon-challenge'
+
+include 'libs'
+include 'libs:solver'
+include 'app'
+include 'app:api'
+findProject(':app:api')?.name = 'api'
+include 'app:cli'
+findProject(':app:cli')?.name = 'cli'
+

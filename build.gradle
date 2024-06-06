@@ -1,0 +1,71 @@
+plugins {
+    id "java"
+}
+
+def childSubprojects() {
+    subprojects.findAll { subproject -> subproject.childProjects.isEmpty() }
+}
+
+configure(childSubprojects()) {
+    apply plugin: "idea"
+    apply plugin: "jacoco"
+
+    plugins.withId("java") {
+        tasks.withType(JavaCompile).configureEach {
+            sourceCompatibility = JavaVersion.VERSION_21
+            targetCompatibility = JavaVersion.VERSION_21
+        }
+
+        java {
+            sourceSets {
+                integTest {
+                    java.srcDir file("src/integTest/java")
+                    resources.srcDir file("src/integTest/resources")
+                    compileClasspath += sourceSets.main.output + configurations.testRuntimeClasspath
+                    runtimeClasspath += output + compileClasspath
+                }
+            }
+        }
+
+        test {
+            include "**/*Test.class"
+            exclude "**/*ITest.class"
+
+            classpath = sourceSets.main.output.classesDirs + classpath - files(jar.archiveFile)
+
+            testLogging.showStandardStreams = true
+            reports {
+                junitXml.required = true
+                html.required = true
+            }
+            jacoco {
+                destinationFile = file "$buildDir/jacoco/jacoco-unit-test.exec"
+            }
+            useJUnitPlatform()
+            finalizedBy jacocoTestReport
+        }
+
+        tasks.register("integTest", Test) {
+            description = "Runs the integration tests."
+            group = "verification"
+            testClassesDirs = sourceSets.integTest.output.classesDirs
+            classpath = sourceSets.integTest.runtimeClasspath
+            mustRunAfter test
+            testLogging.showStandardStreams = true
+            jacoco {
+                destinationFile = file "$buildDir/jacoco/jacoco-it.exec"
+            }
+            useJUnitPlatform()
+            finalizedBy jacocoTestReport
+        }
+    }
+
+    plugins.withId("com.diffplug.spotless") {
+        spotless {
+            java {
+                target("src/main/**/*.java", "src/test/**/*.java", "src/integTest/**/*.java")
+                googleJavaFormat(libs.versions.google.format.get())
+            }
+        }
+    }
+}
