@@ -6,6 +6,7 @@ assertj = "3.25.1"
 json-assert = "1.5.1"
 junit-jupiter = "5.10.2"
 mockito = "5.12.0"
+sql-lite = "3.46.0.0"
 
 [libraries]
 jackson-datatype-joda = { group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-joda", version.ref = "jackson" }
@@ -14,7 +15,7 @@ jackson-annotations = { group = "com.fasterxml.jackson.core", name = "jackson-an
 jackson-databind = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version.ref = "jackson" }
 jackson-core = { group = "com.fasterxml.jackson.core", name = "jackson-core", version.ref = "jackson" }
 logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
-
+sql-lite = { group = "org.xerial", name = "sqlite-jdbc", version.ref = "sql-lite"}
 
 assertj-core = { group = "org.assertj", name = "assertj-core", version.ref = "assertj" }
 mockito-junit-jupiter = { group = "org.mockito", name = "mockito-junit-jupiter", version.ref = "mockito" }

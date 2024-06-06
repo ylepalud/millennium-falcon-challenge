@@ -11,6 +11,9 @@ repositories {
 }
 
 dependencies {
+    implementation libs.sql.lite
+    implementation libs.bundles.jackson
+
     testImplementation libs.bundles.unit.test
 }
 
