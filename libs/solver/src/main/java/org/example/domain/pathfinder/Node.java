@@ -33,7 +33,9 @@ public class Node {
   }
 
   public Optional<Edge> findEdge(String destination) {
-    return edges.stream().filter(edge -> edge.destination().equals(edge.destination())).findFirst();
+    return edges.stream()
+        .filter(edge -> edge.destination().getName().equals(destination))
+        .findFirst();
   }
 
   @Override

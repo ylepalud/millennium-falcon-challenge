@@ -15,7 +15,9 @@ class PathTest {
     // Given
 
     // When
-    assertThrows(NullPointerException.class, () -> new Path(null));
+    assertThrows(NullPointerException.class, () -> new Path(null, "start", "end"));
+    assertThrows(NullPointerException.class, () -> new Path(List.of(), null, "end"));
+    assertThrows(NullPointerException.class, () -> new Path(List.of(), "start", null));
 
     // Then
 
@@ -25,9 +27,9 @@ class PathTest {
   @DisplayName("Should be able to compute Path cost")
   void shouldBeAbleToComputePathCost() {
     // Given
-    var theWay = List.of(new Way("A", 1), new Way("B", 2), new Way("B", 3));
+    var theWay = List.of(new Way("A", "B", 1), new Way("B", "C", 2), new Way("C", "D", 3));
 
-    var path = new Path(theWay);
+    var path = new Path(theWay, "A", "B");
 
     // When
     var actual = path.getTripCost();
@@ -36,18 +38,18 @@ class PathTest {
     assertThat(actual).isEqualTo(6);
   }
 
-    @Test
-    @DisplayName("Should be able to compute remaining Path cost")
-    void shouldBeAbleToComputeRemainingPathCost() {
-        // Given
-        var theWay = List.of(new Way("A", 1), new Way("B", 2), new Way("B", 3));
+  @Test
+  @DisplayName("Should be able to compute remaining Path cost")
+  void shouldBeAbleToComputeRemainingPathCost() {
+    // Given
+    var theWay = List.of(new Way("A", "B", 1), new Way("B", "C", 2), new Way("C", "D", 3));
 
-        var path = new Path(theWay);
+    var path = new Path(theWay, "A", "B");
 
-        // When
-        var actual = path.remainingTripCost(new Way("B", 2));
+    // When
+    var actual = path.remainingTripCost(new Way("B", "C", 2));
 
-        // Then
-        assertThat(actual).isEqualTo(5);
-    }
+    // Then
+    assertThat(actual).isEqualTo(5);
+  }
 }

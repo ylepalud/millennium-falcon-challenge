@@ -47,7 +47,7 @@ public class DijkstraAlgorithm implements Pathfinder {
       }
     }
 
-    throw new NoSolutionFound();
+    throw new NoSolutionFound(endNode.getName() + " isn't reachable from " + startNode.getName());
   }
 
   private Path reconstructPath(Node start, Node end, Map<Node, Node> predecessors) {
@@ -57,21 +57,13 @@ public class DijkstraAlgorithm implements Pathfinder {
     while (current != null && current != start) {
       Node nextStep = predecessors.get(current);
 
-      int travelTime = findNextStepTravelTime(current, nextStep);
+      var edge = current.findEdge(nextStep).orElseThrow();
 
-      theWay.add(new Way(current.getName(), travelTime));
+      theWay.add(new Way(edge.destination().getName(), edge.source().getName(), edge.travelTime()));
 
       current = nextStep;
     }
 
-    if (current == start) {
-      theWay.add(new Way(start.getName(), 0));
-    }
-
-    return new Path(theWay.reversed());
-  }
-
-  private static int findNextStepTravelTime(Node current, Node nextStep) {
-    return current.findEdge(nextStep).orElseThrow().travelTime();
+    return new Path(theWay.reversed(), start.getName(), end.getName());
   }
 }

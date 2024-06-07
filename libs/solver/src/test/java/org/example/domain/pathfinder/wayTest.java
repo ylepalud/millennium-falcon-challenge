@@ -13,8 +13,9 @@ class wayTest {
     // Given
 
     // When
-    assertThrows(NullPointerException.class, () -> new Way(null, 1));
-    assertThrows(IllegalArgumentException.class, () -> new Way("name", -1));
+    assertThrows(NullPointerException.class, () -> new Way(null, "end", 1));
+    assertThrows(NullPointerException.class, () -> new Way("start", null, 1));
+    assertThrows(IllegalArgumentException.class, () -> new Way("start", "end", -1));
 
     // Then
   }

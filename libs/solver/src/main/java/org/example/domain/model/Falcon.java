@@ -2,13 +2,13 @@ package org.example.domain.model;
 
 public class Falcon {
 
-  private final int MAX_AUTONOMY;
+  private final int maxAutonomy;
 
   private int currentFuel;
 
   public Falcon(int maxAutonomy) {
-    MAX_AUTONOMY = maxAutonomy;
-    currentFuel = MAX_AUTONOMY;
+    this.maxAutonomy = maxAutonomy;
+    currentFuel = maxAutonomy;
   }
 
   public boolean hasEnoughGas(int nextBoundCost) {
@@ -23,10 +23,14 @@ public class Falcon {
   }
 
   public void refuel() {
-    currentFuel = MAX_AUTONOMY;
+    currentFuel = maxAutonomy;
   }
 
   public int getCurrentFuel() {
     return currentFuel;
+  }
+
+  public int getMaxAutonomy() {
+    return maxAutonomy;
   }
 }

@@ -1,6 +1,7 @@
 package org.example.domain.pathfinder;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import org.example.domain.model.Route;
@@ -32,7 +33,32 @@ class DijkstraAlgorithmTest {
 
     // Then
     assertThat(path.theWay())
-        .containsExactly(new Way("Tatooine", 0), new Way("Hoth", 1), new Way("Endor", 4));
-    assertThat(path.getTripCost()).isEqualTo(5);
+        .containsExactly(new Way("Tatooine", "Hoth", 6), new Way("Hoth", "Endor", 1));
+    assertThat(path.getTripCost()).isEqualTo(7);
+  }
+
+  @Test
+  @DisplayName("Should throw exception if no path are found")
+  void shouldThrowExceptionIfNoPathAreFound() {
+    // Given
+    var graph =
+        GraphFactory.createGraph(
+            List.of(
+                new Route("Tatooine", "Dagobah", 6),
+                new Route("Dagobah", "Hoth", 1),
+                new Route("Endor", "SomewhereElse", 1),
+                new Route("Tatooine", "Hoth", 6)));
+
+    var tatooine = graph.find("Tatooine").orElseThrow();
+    var endor = graph.find("Endor").orElseThrow();
+
+    Pathfinder dijkstraAlgorithm = new DijkstraAlgorithm(graph);
+
+    // When
+    var exception =
+        assertThrows(NoSolutionFound.class, () -> dijkstraAlgorithm.findTheWay(tatooine, endor));
+
+    // Then
+    assertThat(exception.getMessage()).isEqualTo("Endor isn't reachable from Tatooine");
   }
 }
