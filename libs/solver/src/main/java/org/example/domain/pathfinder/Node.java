@@ -28,8 +28,12 @@ public class Node {
     return name;
   }
 
+  public Optional<Edge> findEdge(Node node) {
+    return findEdge(node.getName());
+  }
+
   public Optional<Edge> findEdge(String destination) {
-      return edges.stream().filter(edge -> edge.destination().equals(edge.destination())).findFirst();
+    return edges.stream().filter(edge -> edge.destination().equals(edge.destination())).findFirst();
   }
 
   @Override

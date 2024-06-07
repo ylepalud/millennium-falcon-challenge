@@ -16,7 +16,7 @@ public class GraphFactory {
           var origin = nodes.get(route.origin());
           var destination = nodes.get(route.destination());
           origin.addEdge(new Edge(origin, destination, route.travelTime()));
-          origin.addEdge(new Edge(destination, origin, route.travelTime())); // Keep ?
+          destination.addEdge(new Edge(destination, origin, route.travelTime())); // Keep ?
         });
 
     return new Graph(new ArrayList<>(nodes.values()));

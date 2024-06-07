@@ -1,7 +1,6 @@
 package org.example.domain.pathfinder;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import org.example.domain.model.Route;
@@ -26,12 +25,14 @@ class DijkstraAlgorithmTest {
     var tatooine = graph.find("Tatooine").orElseThrow();
     var endor = graph.find("Endor").orElseThrow();
 
-    var dijkstraAlgorithm = new DijkstraAlgorithm(graph);
+    Pathfinder dijkstraAlgorithm = new DijkstraAlgorithm(graph);
 
     // When
-    var path = dijkstraAlgorithm.solve(tatooine, endor);
+    var path = dijkstraAlgorithm.findTheWay(tatooine, endor);
 
     // Then
-    assertThat(true).isFalse();
+    assertThat(path.theWay())
+        .containsExactly(new Way("Tatooine", 0), new Way("Hoth", 1), new Way("Endor", 4));
+    assertThat(path.getTripCost()).isEqualTo(5);
   }
 }

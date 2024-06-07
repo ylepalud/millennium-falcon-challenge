@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-public class DijkstraAlgorithm {
+public class DijkstraAlgorithm implements Pathfinder {
 
   final Graph graph;
 
@@ -15,7 +15,8 @@ public class DijkstraAlgorithm {
     this.graph = graph;
   }
 
-  public Path solve(Node startNode, Node endNode) throws NoSolutionFound {
+  @Override
+  public Path findTheWay(Node startNode, Node endNode) throws NoSolutionFound {
     Map<Node, Integer> distances = new HashMap<>();
     Map<Node, Node> predecessors = new HashMap<>();
 
@@ -31,7 +32,7 @@ public class DijkstraAlgorithm {
       int currentDistance = distances.get(current);
 
       if (current.equals(endNode)) {
-        return reconstructPath(startNode, endNode, predecessors, distances);
+        return reconstructPath(startNode, endNode, predecessors);
       }
 
       for (Edge edge : current.getEdges()) {
@@ -49,20 +50,28 @@ public class DijkstraAlgorithm {
     throw new NoSolutionFound();
   }
 
-  private Path reconstructPath(
-      Node start, Node end, Map<Node, Node> predecessors, Map<Node, Integer> distances) {
-    List<Node> path = new ArrayList<>();
+  private Path reconstructPath(Node start, Node end, Map<Node, Node> predecessors) {
+    List<Way> theWay = new ArrayList<>();
     Node current = end;
 
     while (current != null && current != start) {
-      path.add(current);
-      current = predecessors.get(current);
+      Node nextStep = predecessors.get(current);
+
+      int travelTime = findNextStepTravelTime(current, nextStep);
+
+      theWay.add(new Way(current.getName(), travelTime));
+
+      current = nextStep;
     }
 
     if (current == start) {
-      path.add(start);
+      theWay.add(new Way(start.getName(), 0));
     }
 
-    return new Path(distances.get(end), path.reversed());
+    return new Path(theWay.reversed());
+  }
+
+  private static int findNextStepTravelTime(Node current, Node nextStep) {
+    return current.findEdge(nextStep).orElseThrow().travelTime();
   }
 }
