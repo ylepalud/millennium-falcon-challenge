@@ -28,9 +28,9 @@ class DFSGraphTest {
     var result = graph.findAllPaths(new Node("A"), new Node("D"));
 
     // Then
-    assertThat(result).containsExactlyInAnyOrder(
+    assertThat(result)
+        .containsExactlyInAnyOrder(
             new Path(List.of(new Way("A", "B", 1), new Way("B", "D", 3)), "A", "D"),
-            new Path(List.of(new Way("A", "C", 2), new Way("C", "D", 4)), "A", "D")
-    );
+            new Path(List.of(new Way("A", "C", 2), new Way("C", "D", 4)), "A", "D"));
   }
 }

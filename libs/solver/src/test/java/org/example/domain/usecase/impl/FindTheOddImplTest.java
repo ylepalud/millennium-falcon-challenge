@@ -100,8 +100,9 @@ class FindTheOddImplTest {
             new SafestPath(
                 0.1,
                 List.of(
-                    new travel("Hoth", 6, Action.JUMP),
-                    new travel("Hoth", 1, Action.WAIT),
+                    new travel("Dagobah", 6, Action.JUMP),
+                    new travel("Dagobah", 1, Action.WAIT),
+                    new travel("Hoth", 1, Action.JUMP),
                     new travel("Endor", 1, Action.JUMP))));
   }
 
@@ -131,8 +132,9 @@ class FindTheOddImplTest {
             new SafestPath(
                 0.1,
                 List.of(
-                    new travel("Hoth", 6, Action.JUMP),
-                    new travel("Hoth", 1, Action.WAIT),
+                    new travel("Dagobah", 6, Action.JUMP),
+                    new travel("Dagobah", 1, Action.WAIT),
+                    new travel("Hoth", 1, Action.JUMP),
                     new travel("Endor", 1, Action.JUMP))));
   }
 }
