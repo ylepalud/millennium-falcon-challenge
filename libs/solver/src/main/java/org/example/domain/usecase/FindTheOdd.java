@@ -1,9 +1,9 @@
 package org.example.domain.usecase;
 
-import java.util.List;
-import org.example.domain.model.Route;
+import org.example.domain.cost.function.SafestPath;
 
 public interface FindTheOdd {
 
-  List<Route> findTheOdd(int autonomy, String departure, String destination, String pathToUniverse);
+  SafestPath findTheOdd(
+      Direction direction, String pathToUniverse, MissionConstraints missionConstraints);
 }
