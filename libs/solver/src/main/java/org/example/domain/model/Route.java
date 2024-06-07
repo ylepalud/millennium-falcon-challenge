@@ -2,8 +2,8 @@ package org.example.domain.model;
 
 import java.util.Objects;
 
-public record Edge(String origin, String destination, int travelTime) {
-  public Edge {
+public record Route(String origin, String destination, int travelTime) {
+  public Route {
     Objects.requireNonNull(origin, "origin must not be null");
     Objects.requireNonNull(destination, "destination must not be null");
     if (travelTime < 0) {
