@@ -3,6 +3,7 @@ package org.example.domain.pathfinder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class Node {
 
@@ -25,6 +26,10 @@ public class Node {
 
   public String getName() {
     return name;
+  }
+
+  public Optional<Edge> findEdge(String destination) {
+      return edges.stream().filter(edge -> edge.destination().equals(edge.destination())).findFirst();
   }
 
   @Override
