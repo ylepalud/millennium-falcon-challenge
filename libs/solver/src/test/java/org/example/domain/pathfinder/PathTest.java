@@ -35,4 +35,19 @@ class PathTest {
     // Then
     assertThat(actual).isEqualTo(6);
   }
+
+    @Test
+    @DisplayName("Should be able to compute remaining Path cost")
+    void shouldBeAbleToComputeRemainingPathCost() {
+        // Given
+        var theWay = List.of(new Way("A", 1), new Way("B", 2), new Way("B", 3));
+
+        var path = new Path(theWay);
+
+        // When
+        var actual = path.remainingTripCost(new Way("B", 2));
+
+        // Then
+        assertThat(actual).isEqualTo(5);
+    }
 }
