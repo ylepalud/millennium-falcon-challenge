@@ -69,17 +69,12 @@ public class AlgoOne implements CostFunction {
       }
 
       if (mustStopToRefuel(falcon, current)) {
-        refuel(current, countDown, falcon, travel);
+        numberOfMeetingsWithHunter += refuel(current, countDown, falcon, travel, hunters);
       }
-      if (hasBountyHunterInNextJumpArrival(countDown, hunters, current)) {
-        if (isAllowedToAvoidBountyHunter > 0) {
-          refuel(current, countDown, falcon, travel);
-          isAllowedToAvoidBountyHunter--;
-        }
 
-        if (hasBountyHunterInNextJumpArrival(countDown, hunters, current)) {
-          numberOfMeetingsWithHunter++;
-        }
+      while (hasBountyHunterInNextJumpArrival(countDown, hunters, current) && isAllowedToAvoidBountyHunter > 0) {
+        numberOfMeetingsWithHunter += refuel(current, countDown, falcon, travel, hunters);
+        isAllowedToAvoidBountyHunter--;
       }
 
       jump(countDown, falcon, current, travel);
@@ -103,10 +98,12 @@ public class AlgoOne implements CostFunction {
     travel.add(new travel(next.end(), next.travelTime(), Action.JUMP));
   }
 
-  private static void refuel(Way current, CountDown countDown, Falcon falcon, List<travel> travel) {
+  private static int refuel(Way current, CountDown countDown, Falcon falcon, List<travel> travel, Hunters hunters) {
     falcon.refuel();
     countDown.waitForADay();
     travel.add(new travel(current.start(), 1, Action.WAIT));
+
+    return isBountyHunterInCurrentNode(countDown, hunters, current) ? 1 : 0;
   }
 
   private static boolean mustStopToRefuel(Falcon falcon, Way next) {
