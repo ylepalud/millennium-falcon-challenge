@@ -1,7 +1,6 @@
 package org.example.domain.pathfinder.dfs;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import org.example.domain.model.Route;
@@ -25,7 +24,7 @@ class DFSGraphTest {
                 new Route("C", "D", 4)));
 
     // When
-    var result = graph.findAllPaths(new Node("A"), new Node("D"));
+    var result = graph.thisIsTheWay(new Node("A"), new Node("D"));
 
     // Then
     assertThat(result)

@@ -13,7 +13,7 @@ import org.example.domain.pathfinder.NoSolutionFound;
 import org.example.domain.pathfinder.Path;
 import org.example.domain.pathfinder.Way;
 
-public class AlgoOne implements CostFunction {
+public class CostFunctionImpl implements CostFunction {
 
   @Override
   public Optional<SafestPath> giveMeTheOdds(
@@ -58,7 +58,7 @@ public class AlgoOne implements CostFunction {
       CountDown countDown,
       Falcon falcon,
       Hunters hunters,
-      int isAllowedToAvoidBountyHunter) {
+      int allowedNumberOfEncounterWithBountyHunter) {
     int numberOfMeetingsWithHunter = 0;
 
     List<travel> travel = new ArrayList<>();
@@ -72,13 +72,15 @@ public class AlgoOne implements CostFunction {
         numberOfMeetingsWithHunter += refuel(current, countDown, falcon, travel, hunters);
       }
 
-      while (hasBountyHunterInNextJumpArrival(countDown, hunters, current) && isAllowedToAvoidBountyHunter > 0) {
+      while (hasBountyHunterInNextJumpArrival(countDown, hunters, current)
+          && allowedNumberOfEncounterWithBountyHunter > 0) {
         numberOfMeetingsWithHunter += refuel(current, countDown, falcon, travel, hunters);
-        isAllowedToAvoidBountyHunter--;
+        allowedNumberOfEncounterWithBountyHunter--;
       }
 
       jump(countDown, falcon, current, travel);
     }
+
     return new SafestPath(BountyHunterCapture.costFunction(numberOfMeetingsWithHunter), travel);
   }
 
@@ -98,7 +100,8 @@ public class AlgoOne implements CostFunction {
     travel.add(new travel(next.end(), next.travelTime(), Action.JUMP));
   }
 
-  private static int refuel(Way current, CountDown countDown, Falcon falcon, List<travel> travel, Hunters hunters) {
+  private static int refuel(
+      Way current, CountDown countDown, Falcon falcon, List<travel> travel, Hunters hunters) {
     falcon.refuel();
     countDown.waitForADay();
     travel.add(new travel(current.start(), 1, Action.WAIT));

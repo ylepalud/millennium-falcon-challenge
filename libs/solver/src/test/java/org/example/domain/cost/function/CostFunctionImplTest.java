@@ -15,7 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class AlgoOneTest {
+class CostFunctionImplTest {
 
   List<Path> paths;
   Falcon falcon;
@@ -32,7 +32,7 @@ class AlgoOneTest {
                 "Endor"));
     falcon = new Falcon(6);
     bountyHunters = List.of(new BountyHunter(new Planet("Hoth"), 6));
-    costFunction = new AlgoOne();
+    costFunction = new CostFunctionImpl();
   }
 
   @Test

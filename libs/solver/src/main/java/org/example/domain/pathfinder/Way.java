@@ -10,8 +10,4 @@ public record Way(String start, String end, int travelTime) {
       throw new IllegalArgumentException("travelTime must not be negative");
     }
   }
-
-  public boolean isDestination() {
-    return start.equals(end);
-  }
 }

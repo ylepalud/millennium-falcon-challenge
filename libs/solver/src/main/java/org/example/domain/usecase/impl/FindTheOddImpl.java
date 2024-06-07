@@ -2,8 +2,8 @@ package org.example.domain.usecase.impl;
 
 import java.util.List;
 import org.example.adapter.DummyRetrieveUniverseAdapter;
-import org.example.domain.cost.function.AlgoOne;
 import org.example.domain.cost.function.CostFunction;
+import org.example.domain.cost.function.CostFunctionImpl;
 import org.example.domain.cost.function.SafestPath;
 import org.example.domain.pathfinder.dfs.DFSGraphFactory;
 import org.example.domain.pathfinder.dfs.Node;
@@ -21,7 +21,7 @@ public class FindTheOddImpl implements FindTheOdd {
   public FindTheOddImpl() {
     this.retrieveUniverse = new DummyRetrieveUniverseAdapter();
 
-    costFunction = new AlgoOne();
+    costFunction = new CostFunctionImpl();
   }
 
   @Override
@@ -30,7 +30,7 @@ public class FindTheOddImpl implements FindTheOdd {
     var graph = DFSGraphFactory.createGraph(retrieveUniverse.findUniverse(pathToUniverse));
 
     var path =
-        graph.findAllPaths(new Node(direction.departure()), new Node(direction.destination()));
+        graph.thisIsTheWay(new Node(direction.departure()), new Node(direction.destination()));
 
     return costFunction
         .giveMeTheOdds(

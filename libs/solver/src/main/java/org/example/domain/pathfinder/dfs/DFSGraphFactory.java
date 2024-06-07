@@ -11,27 +11,28 @@ public class DFSGraphFactory {
 
     var graph = new DFSGraph();
 
-    var nodes =
-        routes.stream()
-            .<String>mapMulti(
-                (route, consumer) -> {
-                  consumer.accept(route.origin());
-                  consumer.accept(route.destination());
-                })
-            .distinct()
-            .map(Node::new)
-            .map(node -> Map.entry(node.name(), node))
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    var nodes = createNodesAndGroupThemByName(routes);
 
     nodes.values().forEach(graph::addNode);
 
     routes.forEach(
         route ->
             graph.addEdge(
-                nodes.get(route.origin()),
-                nodes.get(route.destination()),
-                route.travelTime())); // Add travel time
+                nodes.get(route.origin()), nodes.get(route.destination()), route.travelTime()));
 
     return graph;
+  }
+
+  private static Map<String, Node> createNodesAndGroupThemByName(List<Route> routes) {
+    return routes.stream()
+        .<String>mapMulti(
+            (route, consumer) -> {
+              consumer.accept(route.origin());
+              consumer.accept(route.destination());
+            })
+        .distinct()
+        .map(Node::new)
+        .map(node -> Map.entry(node.name(), node))
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
   }
 }
