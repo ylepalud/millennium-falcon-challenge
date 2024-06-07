@@ -46,7 +46,7 @@ class AlgoOneTest {
 
     // Then
     assertThat(actual).isPresent();
-    assertThat(actual.get().odds()).isCloseTo(0.0, Assertions.offset(0.01));
+    assertThat(actual.get().odds()).isCloseTo(0.1, Assertions.offset(0.01));
 
     assertThat(actual.get().travels())
         .containsExactly(

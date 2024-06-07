@@ -71,7 +71,7 @@ class FindTheOddImplTest {
 
         // Then
         assertThat(actual)
-                .isEqualTo(new SafestPath(0.1, List.of(
+                .isEqualTo(new SafestPath(0.19, List.of(
                         new travel("Hoth", 6, Action.JUMP),
                         new travel("Hoth", 1, Action.WAIT),
                         new travel("Endor", 1, Action.JUMP)

@@ -57,6 +57,10 @@ public class AlgoOne implements CostFunction {
     List<travel> travel = new ArrayList<>();
 
     for (var current : path.theWay()) {
+      if (isBountyHunterInCurrentNode(countDown, hunters, current)) {
+        numberOfMeetingsWithHunter++;
+      }
+
       if (mustStopToRefuel(falcon, current)) {
         refuel(current, countDown, falcon, travel);
       }
@@ -79,6 +83,10 @@ public class AlgoOne implements CostFunction {
   private static boolean hasBountyHunterInNextJumpArrival(
       CountDown countDown, Hunters hunters, Way next) {
     return hunters.hasHunter(next.start(), countDown.getCurrentDay() + next.travelTime());
+  }
+
+  private static boolean isBountyHunterInCurrentNode(CountDown countDown, Hunters hunters, Way current) {
+    return hunters.hasHunter(current.start(), countDown.getCurrentDay());
   }
 
   private static void jump(CountDown countDown, Falcon falcon, Way next, List<travel> travel) {
