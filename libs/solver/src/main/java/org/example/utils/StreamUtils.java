@@ -5,9 +5,9 @@ import java.util.stream.Stream;
 
 public final class StreamUtils {
 
-    private StreamUtils() {}
+  private StreamUtils() {}
 
-    public static <T> Stream<T> toStream(Collection<T> collection) {
-        return collection == null ? Stream.empty() : collection.stream();
-    }
+  public static <T> Stream<T> toStream(Collection<T> collection) {
+    return collection == null ? Stream.empty() : collection.stream();
+  }
 }
