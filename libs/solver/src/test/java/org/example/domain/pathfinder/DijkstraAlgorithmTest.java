@@ -32,9 +32,11 @@ class DijkstraAlgorithmTest {
     var path = dijkstraAlgorithm.findTheWay(tatooine, endor);
 
     // Then
-    assertThat(path.theWay())
-        .containsExactly(new Way("Tatooine", "Hoth", 6), new Way("Hoth", "Endor", 1));
-    assertThat(path.getTripCost()).isEqualTo(7);
+    assertThat(path).hasSize(1);
+
+    assertThat(path.getFirst())
+        .extracting(Path::theWay, Path::getTripCost)
+        .containsExactly(List.of(new Way("Tatooine", "Hoth", 6), new Way("Hoth", "Endor", 1)), 7);
   }
 
   @Test

@@ -10,5 +10,5 @@ import org.example.domain.pathfinder.Path;
 public interface CostFunction {
 
   Optional<SafestPath> giveMeTheOdds(
-      Path path, CountDown countDown, Falcon falcon, List<BountyHunter> bountyHunters);
+      List<Path> path, CountDown countDown, Falcon falcon, List<BountyHunter> bountyHunters);
 }

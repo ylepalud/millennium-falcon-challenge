@@ -1,5 +1,6 @@
 package org.example.domain.usecase.impl;
 
+import java.util.List;
 import org.example.adapter.DummyRetrieveUniverseAdapter;
 import org.example.domain.cost.function.AlgoOne;
 import org.example.domain.cost.function.CostFunction;
@@ -13,8 +14,6 @@ import org.example.domain.usecase.Direction;
 import org.example.domain.usecase.FindTheOdd;
 import org.example.domain.usecase.MissionConstraints;
 import org.example.domain.usecase.RetrieveUniverse;
-
-import java.util.List;
 
 public class FindTheOddImpl implements FindTheOdd {
 

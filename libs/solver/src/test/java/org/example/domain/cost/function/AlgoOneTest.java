@@ -17,18 +17,19 @@ import org.junit.jupiter.api.Test;
 
 class AlgoOneTest {
 
-  Path path;
+  List<Path> paths;
   Falcon falcon;
   List<BountyHunter> bountyHunters;
   CostFunction costFunction;
 
   @BeforeEach
   void setUp() {
-    path =
-        new Path(
-            List.of(new Way("Tatooine", "Hoth", 6), new Way("Hoth", "Endor", 1)),
-            "Tatooine",
-            "Endor");
+    paths =
+        List.of(
+            new Path(
+                List.of(new Way("Tatooine", "Hoth", 6), new Way("Hoth", "Endor", 1)),
+                "Tatooine",
+                "Endor"));
     falcon = new Falcon(6);
     bountyHunters = List.of(new BountyHunter(new Planet("Hoth"), 6));
     costFunction = new AlgoOne();
@@ -42,7 +43,7 @@ class AlgoOneTest {
 
     // When
     Optional<SafestPath> actual =
-        costFunction.giveMeTheOdds(path, countDown, falcon, bountyHunters);
+        costFunction.giveMeTheOdds(paths, countDown, falcon, bountyHunters);
 
     // Then
     assertThat(actual).isPresent();
@@ -63,7 +64,7 @@ class AlgoOneTest {
 
     // When
     Optional<SafestPath> actual =
-        costFunction.giveMeTheOdds(path, countDown, falcon, bountyHunters);
+        costFunction.giveMeTheOdds(paths, countDown, falcon, bountyHunters);
 
     // Then
     assertThat(actual).isEmpty();

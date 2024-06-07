@@ -1,6 +1,8 @@
 package org.example.domain.pathfinder;
 
+import java.util.List;
+
 public interface Pathfinder {
 
-  Path findTheWay(Node startNode, Node endNode) throws NoSolutionFound;
+  List<Path> findTheWay(Node startNode, Node endNode) throws NoSolutionFound;
 }

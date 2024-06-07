@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import org.example.domain.model.BountyHunter;
 import org.example.domain.model.CountDown;
 import org.example.domain.model.Falcon;
@@ -16,10 +17,17 @@ public class AlgoOne implements CostFunction {
 
   @Override
   public Optional<SafestPath> giveMeTheOdds(
-      Path path, CountDown countDown, Falcon falcon, List<BountyHunter> bountyHunters) {
+      List<Path> paths, CountDown countDown, Falcon falcon, List<BountyHunter> bountyHunters) {
     var hunters = new Hunters(bountyHunters);
 
-    return IntStream.range(0, path.steps())
+    return paths.stream()
+        .flatMap(path -> computeCostForGivenPath(path, countDown, falcon, hunters))
+        .min(Comparator.comparing(SafestPath::odds));
+  }
+
+  public Stream<SafestPath> computeCostForGivenPath(
+      Path path, CountDown countDown, Falcon falcon, Hunters hunters) {
+    return IntStream.range(0, path.theWay().size())
         .mapToObj(
             allowedStop ->
                 handleNoSolutionFind(
@@ -28,8 +36,7 @@ public class AlgoOne implements CostFunction {
                     new Falcon(falcon.getMaxAutonomy()),
                     hunters,
                     allowedStop))
-        .flatMap(Optional::stream)
-        .min(Comparator.comparing(SafestPath::odds));
+        .flatMap(Optional::stream);
   }
 
   public Optional<SafestPath> handleNoSolutionFind(
@@ -85,7 +92,8 @@ public class AlgoOne implements CostFunction {
     return hunters.hasHunter(next.start(), countDown.getCurrentDay() + next.travelTime());
   }
 
-  private static boolean isBountyHunterInCurrentNode(CountDown countDown, Hunters hunters, Way current) {
+  private static boolean isBountyHunterInCurrentNode(
+      CountDown countDown, Hunters hunters, Way current) {
     return hunters.hasHunter(current.start(), countDown.getCurrentDay());
   }
 

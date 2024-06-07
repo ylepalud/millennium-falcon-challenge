@@ -16,7 +16,7 @@ public class DijkstraAlgorithm implements Pathfinder {
   }
 
   @Override
-  public Path findTheWay(Node startNode, Node endNode) throws NoSolutionFound {
+  public List<Path> findTheWay(Node startNode, Node endNode) throws NoSolutionFound {
     Map<Node, Integer> distances = new HashMap<>();
     Map<Node, Node> predecessors = new HashMap<>();
 
@@ -32,7 +32,7 @@ public class DijkstraAlgorithm implements Pathfinder {
       int currentDistance = distances.get(current);
 
       if (current.equals(endNode)) {
-        return reconstructPath(startNode, endNode, predecessors);
+        return List.of(reconstructPath(startNode, endNode, predecessors));
       }
 
       for (Edge edge : current.getEdges()) {
