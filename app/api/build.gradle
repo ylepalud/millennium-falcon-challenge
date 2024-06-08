@@ -12,6 +12,7 @@ repositories {
 
 dependencies {
     testImplementation libs.bundles.unit.test
+    implementation project(":libs:solver")
 }
 
 test {
