@@ -1,4 +1,4 @@
-package org.example.infrastructure.model;
+package org.example.universe.db;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 

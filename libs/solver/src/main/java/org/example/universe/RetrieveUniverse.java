@@ -1,4 +1,4 @@
-package org.example.domain.usecase;
+package org.example.universe;
 
 import java.util.List;
 import org.example.domain.model.Route;

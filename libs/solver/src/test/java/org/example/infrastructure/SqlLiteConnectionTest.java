@@ -1,67 +1,43 @@
 package org.example.infrastructure;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mockStatic;
-import static org.mockito.Mockito.when;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
-import org.example.infrastructure.model.Route;
-import org.junit.jupiter.api.BeforeEach;
+import org.example.universe.db.Route;
+import org.example.universe.db.SqlLiteConnection;
 import org.junit.jupiter.api.DisplayName;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.jupiter.api.Test;
 
 class SqlLiteConnectionTest {
-  @Mock private Connection connection;
 
-  @Mock private Statement statement;
-
-  @Mock private ResultSet resultSet;
-
-  @Mock private ResultSetMetaData resultSetMetaData;
-
-  SqlLiteConnection sqlLiteConnection;
-
-  @BeforeEach
-  public void setUp() throws SQLException {
-    MockitoAnnotations.openMocks(this);
-
-    when(connection.createStatement()).thenReturn(statement);
-    when(statement.executeQuery(anyString())).thenReturn(resultSet);
-
-    when(resultSet.getMetaData()).thenReturn(resultSetMetaData);
-
-    when(resultSetMetaData.getColumnCount()).thenReturn(3);
-    when(resultSetMetaData.getColumnName(1)).thenReturn("origin");
-    when(resultSetMetaData.getColumnName(2)).thenReturn("destination");
-    when(resultSetMetaData.getColumnName(3)).thenReturn("travel_time");
-
-    when(resultSet.getObject(1)).thenReturn("Tatouine", "Dagobah");
-    when(resultSet.getObject(2)).thenReturn("Dagobah", "Tatouine");
-    when(resultSet.getObject(3)).thenReturn(2, 2);
-    when(resultSet.next()).thenReturn(true, true, false);
-    sqlLiteConnection = new SqlLiteConnection();
-  }
-
-  @DisplayName("Should retrieve edges from database")
-  void shouldRetrieveEdgesFromDatabase() throws SQLException {
+  @Test
+  @DisplayName("Should retrieve routes from universe db")
+  void shouldRetrieveRoutesFromUniverseDb() {
     // Given
-
-    mockStatic(DriverManager.class);
-    when(DriverManager.getConnection(anyString())).thenReturn(connection);
+    var sqlLite = new SqlLiteConnection();
 
     // When
-    var actual = sqlLiteConnection.retrieveAllRoutes("dummy-path");
+    var routes = sqlLite.retrieveAllRoutes("universe.db");
 
     // Then
-    assertThat(actual)
+    assertThat(routes)
         .containsExactlyInAnyOrder(
-            new Route("Tatouine", "Dagobah", 2), new Route("Dagobah", "Tatouine", 2));
+            new Route("Tatooine", "Dagobah", 6),
+            new Route("Dagobah", "Endor", 4),
+            new Route("Dagobah", "Hoth", 1),
+            new Route("Hoth", "Endor", 1),
+            new Route("Tatooine", "Hoth", 6));
+  }
+
+  @Test
+  @DisplayName("Should return empty list if db isn't found")
+  void shouldReturnEmptyListIfDbIsnTFound() {
+    // Given
+    var sqlLite = new SqlLiteConnection();
+
+    // When
+    var routes = sqlLite.retrieveAllRoutes("not_a_path_to_a_db");
+
+    // Then
+    assertThat(routes).isEmpty();
   }
 }

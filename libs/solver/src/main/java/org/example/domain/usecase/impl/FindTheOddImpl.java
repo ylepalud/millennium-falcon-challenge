@@ -1,7 +1,6 @@
 package org.example.domain.usecase.impl;
 
 import java.util.List;
-import org.example.adapter.DummyRetrieveUniverseAdapter;
 import org.example.domain.cost.function.CostFunction;
 import org.example.domain.cost.function.CostFunctionImpl;
 import org.example.domain.cost.function.SafestPath;
@@ -10,7 +9,7 @@ import org.example.domain.pathfinder.dfs.Node;
 import org.example.domain.usecase.Direction;
 import org.example.domain.usecase.FindTheOdd;
 import org.example.domain.usecase.MissionConstraints;
-import org.example.domain.usecase.RetrieveUniverse;
+import org.example.universe.RetrieveUniverse;
 
 public class FindTheOddImpl implements FindTheOdd {
 
@@ -18,8 +17,8 @@ public class FindTheOddImpl implements FindTheOdd {
 
   private final CostFunction costFunction;
 
-  public FindTheOddImpl() {
-    this.retrieveUniverse = new DummyRetrieveUniverseAdapter();
+  public FindTheOddImpl(RetrieveUniverse retrieveUniverse) {
+    this.retrieveUniverse = retrieveUniverse;
 
     costFunction = new CostFunctionImpl();
   }

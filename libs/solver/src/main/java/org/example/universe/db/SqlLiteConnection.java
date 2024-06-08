@@ -1,4 +1,6 @@
-package org.example.infrastructure;
+package org.example.universe.db;
+
+import static org.slf4j.LoggerFactory.getLogger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.sql.Connection;
@@ -10,49 +12,46 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.example.infrastructure.model.Route;
+
+import org.slf4j.Logger;
 
 public class SqlLiteConnection {
+
+  private static final Logger LOGGER = getLogger(SqlLiteConnection.class);
 
   private final String SELECT_ALL_ROUTES = "SELECT * FROM routes";
 
   private final ObjectMapper objectMapper = new ObjectMapper();
 
-  public static void main(String[] args) {
-    var a = new SqlLiteConnection();
-    var result = a.retrieveAllRoutes("universe.db");
-    System.out.println("result = " + result);
-  }
-
   public List<Route> retrieveAllRoutes(String pathToDb) {
-    Connection connection = null;
     List<Route> routes = List.of();
-    var path = SqlLiteConnection.class.getClassLoader().getResource(pathToDb).getFile();
+    Connection connection = null;
     try {
       Class.forName("org.sqlite.JDBC");
-      connection = DriverManager.getConnection("jdbc:sqlite:" + pathToDb);
+      connection = DriverManager.getConnection("jdbc:sqlite::resource:" + pathToDb);
       Statement statement = connection.createStatement();
       ResultSet resultSet = statement.executeQuery(SELECT_ALL_ROUTES);
 
-      routes = getRoutes(resultSet);
+      routes = map(resultSet);
 
       resultSet.close();
       statement.close();
     } catch (ClassNotFoundException | SQLException e) {
-      throw new RuntimeException(e);
+      LOGGER.error("Can't read universe from db " + e.getMessage(), e);
+      return routes;
     } finally {
       try {
         if (connection != null) {
           connection.close();
         }
-      } catch (SQLException ex) {
-        System.out.println(ex.getMessage());
+      } catch (SQLException e) {
+        LOGGER.error("Can't read universe from db " + e.getMessage(), e);
       }
     }
     return routes;
   }
 
-  private List<Route> getRoutes(ResultSet resultSet) throws SQLException {
+  private List<Route> map(ResultSet resultSet) throws SQLException {
     List<Route> rows = new ArrayList<>();
     int columnCount = resultSet.getMetaData().getColumnCount();
 

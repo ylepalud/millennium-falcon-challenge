@@ -1,11 +1,11 @@
-package org.example.adapter;
+package org.example.universe.impl;
 
 import java.util.List;
 import org.example.domain.model.Route;
-import org.example.domain.usecase.RetrieveUniverse;
-import org.example.infrastructure.SqlLiteConnection;
+import org.example.universe.RetrieveUniverse;
+import org.example.universe.db.SqlLiteConnection;
 
-public class RetrieveUniverseAdapter implements RetrieveUniverse {
+public class RetrieveUniverseImpl implements RetrieveUniverse {
   @Override
   public List<Route> findUniverse(String path) {
     var connection = new SqlLiteConnection();
