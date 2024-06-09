@@ -2,7 +2,13 @@
 
 ## Implementation
 
-### [Link to CLI](app%2Fcli%2FREADME.md)
+### [Solver's documentation](libs%2Fsolver%2FREADME.md)
+
+### [API's documentation](app%2Fapi%2FREADME.md)
+
+### [CLI's documentation](app%2Fcli%2FREADME.md)
+
+### What next ?
 
 
 ## What are the odds?
