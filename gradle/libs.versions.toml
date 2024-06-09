@@ -7,6 +7,17 @@ json-assert = "1.5.1"
 junit-jupiter = "5.10.2"
 mockito = "5.12.0"
 sql-lite = "3.46.0.0"
+spring = "3.3.0"
+spring-fox = "3.0.0"
+javax = "2.0.1.Final"
+hibernate = "6.2.0.Final"
+openapi-jackson-tools = "0.2.6"
+swagger-annatation = "1.6.14"
+swagger-annatation-v3 = "2.2.22"
+javax-annotation = "1.3.2"
+open-api-starter = "2.3.0"
+javax-servlet = "4.0.1"
+
 
 [libraries]
 jackson-datatype-joda = { group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-joda", version.ref = "jackson" }
@@ -14,18 +25,55 @@ jackson-datatype-jsr310 = { group = "com.fasterxml.jackson.datatype", name = "ja
 jackson-annotations = { group = "com.fasterxml.jackson.core", name = "jackson-annotations", version.ref = "jackson" }
 jackson-databind = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version.ref = "jackson" }
 jackson-core = { group = "com.fasterxml.jackson.core", name = "jackson-core", version.ref = "jackson" }
+jackson-databind-nullable = { group = "org.openapitools", name = "jackson-databind-nullable", version.ref = "openapi-jackson-tools" }
+
+
 logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
-sql-lite = { group = "org.xerial", name = "sqlite-jdbc", version.ref = "sql-lite"}
+sql-lite = { group = "org.xerial", name = "sqlite-jdbc", version.ref = "sql-lite" }
+spring-web = { group = "org.springframework.boot", name = "spring-boot-starter-web", version.ref = "spring" }
+spring-validation = { group = "org.springframework.boot", name = "spring-boot-starter-validation", version.ref = "spring" }
+spring-actuator = { group = "org.springframework.boot", name = "spring-boot-starter-actuator", version.ref = "spring" }
+spring-test = { group = "org.springframework.boot", name = "spring-boot-starter-test", version.ref = "spring" }
+spring-boot-starter-hateoas = { group = "org.springframework.boot", name = "spring-boot-starter-hateoas", version.ref = "spring" }
+
+
+validation-api = { group = "javax.validation", name = "validation-api", version.ref = "javax" }
+validation-hibernate = { group = "org.hibernate.validator", name = "hibernate-validator", version.ref = "hibernate" }
+springfox-swagger = { group = "io.springfox", name = "springfox-swagger2", version.ref = "spring-fox" }
+springfox-starter = { group = "io.springfox", name = "springfox-boot-starter", version.ref = "spring-fox" }
+swagger-annotation = { group = "io.swagger", name = "swagger-annotations", version.ref = "swagger-annatation" }
+swagger-annotation-v3 = { group = "io.swagger.core.v3", name = "swagger-annotations", version.ref = "swagger-annatation-v3" }
+javax = { group = "javax.annotation", name = "javax.annotation-api", version.ref = "javax-annotation" }
+openapi-starter = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "open-api-starter" }
+
+springfox-swagger-ui = { group = "io.springfox", name = "springfox-swagger-ui", version.ref = "spring-fox" }
+javax-servlet = { group = "javax.servlet", name = "javax.servlet-api", version.ref = "javax-servlet" }
 
 assertj-core = { group = "org.assertj", name = "assertj-core", version.ref = "assertj" }
 mockito-junit-jupiter = { group = "org.mockito", name = "mockito-junit-jupiter", version.ref = "mockito" }
 json-assert = { group = "org.skyscreamer", name = "jsonassert", version.ref = "json-assert" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junit-jupiter" }
-junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit-jupiter" }
-junit-jupiter-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junit-jupiter" }
 
 [bundles]
-jackson = ["jackson-annotations", "jackson-databind", "jackson-core", "jackson-datatype-joda"]
+jackson = [
+    "jackson-annotations",
+    "jackson-databind",
+    "jackson-core",
+    "jackson-datatype-joda",
+    "jackson-datatype-jsr310"
+]
+
+openapi = [
+    "validation-api",
+    "validation-hibernate",
+    "springfox-swagger",
+    "springfox-starter",
+    "swagger-annotation",
+    "swagger-annotation-v3",
+    "javax",
+    "openapi-starter",
+    "jackson-databind-nullable"
+]
 
 unit-test = [
     "assertj-core",
@@ -34,10 +82,11 @@ unit-test = [
     "mockito-junit-jupiter"
 ]
 
-integration-test = [
-    "assertj-core",
-    "json-assert",
-    "junit-jupiter",
-    "junit-jupiter-api",
-    "junit-jupiter-params"
+api = [
+    "spring-web",
+    "spring-validation",
+    "spring-actuator",
+    "spring-test",
+    "spring-boot-starter-hateoas"
 ]
+

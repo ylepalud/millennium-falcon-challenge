@@ -1,0 +1,52 @@
+package org.ylp.find.the.odd;
+
+import static org.ylp.solver.utils.StreamUtils.toStream;
+
+import com.ylp.model.SolvePost200Response;
+import com.ylp.model.SolvePost200ResponsePathInner;
+import com.ylp.model.SolvePostRequest;
+import java.util.List;
+import org.springframework.stereotype.Service;
+import org.ylp.solver.model.BountyHunter;
+import org.ylp.solver.model.CountDown;
+import org.ylp.solver.model.Planet;
+import org.ylp.solver.step.Solver;
+import org.ylp.solver.step.cost.function.SafestPath;
+import org.ylp.solver.step.cost.function.travel;
+
+@Service
+public class FindTheOddService {
+
+  public SolvePost200Response findSolution(SolvePostRequest request) {
+    var bountyHunter = mapHunter(request);
+
+    CountDown countDown = mapCountDown(request);
+
+    return mapResponse(Solver.solve(countDown, bountyHunter));
+  }
+
+  private SolvePost200Response mapResponse(SafestPath solve) {
+    var response = new SolvePost200Response();
+    response.setOdd(solve.odds());
+    response.setPath(toStream(solve.travels()).map(FindTheOddService::mapPath).toList());
+    return response;
+  }
+
+  private static SolvePost200ResponsePathInner mapPath(travel travel) {
+    var path = new SolvePost200ResponsePathInner();
+    path.action(travel.action().name());
+    path.setPlanet(travel.planet());
+    path.setTimeTravel(travel.time());
+    return path;
+  }
+
+  private static CountDown mapCountDown(SolvePostRequest request) {
+    return new CountDown(request.getCountDown());
+  }
+
+  private static List<BountyHunter> mapHunter(SolvePostRequest request) {
+    return toStream(request.getBountyHunters())
+        .map(hunter -> new BountyHunter(new Planet(hunter.getPlanet()), hunter.getDay()))
+        .toList();
+  }
+}

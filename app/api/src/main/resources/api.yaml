@@ -1,0 +1,63 @@
+openapi: 3.0.0
+info:
+  title: Millenium falcon challenger
+  description: Api for the Millenium falcon challenger
+  version: "1.0"
+  contact:
+    name: Yves Le Palud
+    email: yves.le.palud@gmail.com
+paths:
+  /solve:
+    post:
+      summary: Solve Millenium Falcon challenge
+      description: Solve Millenium Falcon challenge
+      requestBody:
+        description: Request for solving Falcon millenium challenger
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - routesDb
+                - autonomy
+                - departure
+                - arrival
+              properties:
+                countDown:
+                  type: integer
+                bountyHunters:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      planet:
+                        type: string
+                      day:
+                        type: integer
+
+
+      responses:
+        '200':
+          description: Found a solution
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - odd
+                  - path
+                properties:
+                  odd:
+                    type: number
+                    format: double
+                  path:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        planet:
+                          type: string
+                        timeTravel:
+                          type: integer
+                        action:
+                          type: string

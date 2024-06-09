@@ -1,6 +1,12 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '3.3.0'
     id "com.diffplug.spotless"
+
+
+    id 'io.spring.dependency-management' version '1.1.5'
+
+    id 'org.openapi.generator' version '7.6.0'
 }
 
 group = 'org.example'
@@ -13,8 +19,57 @@ repositories {
 dependencies {
     testImplementation libs.bundles.unit.test
     implementation project(":libs:solver")
+
+
+    implementation libs.bundles.api
+    implementation libs.bundles.jackson
+
+    implementation libs.bundles.openapi
+
+    compileOnly libs.javax.servlet
+    compileOnly libs.springfox.swagger.ui
 }
 
 test {
     useJUnitPlatform()
+}
+
+openApiGenerate  {
+    generatorName = "spring"
+    inputSpec = "${projectDir}/src/main/resources/api.yaml"
+    outputDir = "${buildDir}/generated"
+    apiPackage = "com.ylp.api"
+    invokerPackage = "com.ylp.api"
+    modelPackage = "com.ylp.model"
+
+    configOptions = [
+            interfaceOnly: "true",
+            openApiNullable: "false",
+            skipDefaultInterface: "true",
+            dateLibrary: "java8",
+            useSpringBoot3: "true",
+            useJakartaEe: "true"
+    ]
+    globalProperties = [
+            apis: "",
+            models: ""
+    ]
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs += "${buildDir}/generated/src/main/java"
+        }
+    }
+}
+
+openApiValidate {
+    inputSpec = "$rootDir/app/api/src/main/resources/api.yaml".toString()
+}
+
+compileJava.dependsOn tasks.openApiGenerate
+
+clean {
+    delete "${buildDir}/generated"
 }
