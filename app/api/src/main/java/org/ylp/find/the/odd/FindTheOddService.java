@@ -9,6 +9,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.ylp.solver.model.BountyHunter;
 import org.ylp.solver.model.CountDown;
+import org.ylp.solver.model.Direction;
+import org.ylp.solver.model.Falcon;
+import org.ylp.solver.model.MissionConstraints;
 import org.ylp.solver.model.Planet;
 import org.ylp.solver.step.Solver;
 import org.ylp.solver.step.cost.function.SafestPath;
@@ -22,7 +25,13 @@ public class FindTheOddService {
 
     CountDown countDown = mapCountDown(request);
 
-    return mapResponse(Solver.solve(countDown, bountyHunter));
+    var milleniumFalcon = MilleniumFalconConfigFileReader.readMilleniumFalconConfigFile();
+
+    Direction direction = new Direction(milleniumFalcon.departure(), milleniumFalcon.arrival());
+    MissionConstraints missionConstraints =
+        new MissionConstraints(countDown, new Falcon(milleniumFalcon.autonomy()), bountyHunter);
+
+    return mapResponse(Solver.solve(direction, milleniumFalcon.routesDb(), missionConstraints));
   }
 
   private SolvePost200Response mapResponse(SafestPath solve) {

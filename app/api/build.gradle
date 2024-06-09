@@ -9,7 +9,7 @@ plugins {
     id 'org.openapi.generator' version '7.6.0'
 }
 
-group = 'org.example'
+group = 'org.ylp'
 version = 'unspecified'
 
 repositories {

@@ -1,5 +1,10 @@
 # Developer Technical Test @ Dataiku
 
+## Implementation
+
+### [Link to CLI](app%2Fcli%2FREADME.md)
+
+
 ## What are the odds?
 
 [A long time ago in a galaxy far away...](https://youtu.be/2EGHIxz-bwI)

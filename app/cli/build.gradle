@@ -1,9 +1,10 @@
 plugins {
     id 'java'
     id "com.diffplug.spotless"
+    id 'org.graalvm.buildtools.native' version '0.9.8'
 }
 
-group = 'org.example'
+group = 'org.ylp'
 version = 'unspecified'
 
 repositories {
@@ -12,8 +13,27 @@ repositories {
 
 dependencies {
     testImplementation libs.bundles.unit.test
+    implementation project(":libs:solver")
+    implementation libs.bundles.jackson
+
+    implementation libs.picocli
+    annotationProcessor 'info.picocli:picocli-codegen:4.7.6'
 }
+
+compileJava {
+    options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]
+}
+
 
 test {
     useJUnitPlatform()
+}
+
+graalvmNative {
+    binaries {
+        main {
+            // Optionnel : spécifiez les options de configuration pour native-image
+            buildArgs.add('--no-fallback')
+        }
+    }
 }
