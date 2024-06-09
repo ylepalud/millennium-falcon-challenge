@@ -27,7 +27,7 @@ public class CostFunctionImpl implements CostFunction {
 
   public Stream<SafestPath> computeCostForGivenPath(
       Path path, CountDown countDown, Falcon falcon, Hunters hunters) {
-    return IntStream.range(0, path.theWay().size())
+    return IntStream.range(0, 10)
         .mapToObj(
             allowedStop ->
                 handleNoSolutionFind(
@@ -86,7 +86,7 @@ public class CostFunctionImpl implements CostFunction {
 
   private static boolean hasBountyHunterInNextJumpArrival(
       CountDown countDown, Hunters hunters, Way next) {
-    return hunters.hasHunter(next.start(), countDown.getCurrentDay() + next.travelTime());
+    return hunters.hasHunter(next.end(), countDown.getCurrentDay() + next.travelTime());
   }
 
   private static boolean isBountyHunterInCurrentNode(

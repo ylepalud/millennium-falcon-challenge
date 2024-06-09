@@ -29,7 +29,14 @@ class FindTheOddImplTest {
   @Mock RetrieveUniverse retrieveUniverse;
 
   private FindTheOdd findTheOdd;
+
   private Falcon falcon;
+
+  private static final List<BountyHunter> bountyHunters =
+      List.of(
+          new BountyHunter(new Planet("Hoth"), 6),
+          new BountyHunter(new Planet("Hoth"), 7),
+          new BountyHunter(new Planet("Hoth"), 8));
 
   @BeforeEach
   void setUp() {
@@ -58,14 +65,8 @@ class FindTheOddImplTest {
     var actual = findTheOdd.findTheOdd(direction, "", missionConstraints);
 
     // Then
-    assertThat(actual).isEqualTo(new SafestPath(1.0, List.of()));
+    assertThat(actual).isEqualTo(new SafestPath(0.0, List.of()));
   }
-
-  private static List<BountyHunter> bountyHunters =
-      List.of(
-          new BountyHunter(new Planet("Hoth"), 6),
-          new BountyHunter(new Planet("Hoth"), 7),
-          new BountyHunter(new Planet("Hoth"), 8));
 
   @Test
   @DisplayName("Should compute the odd: exemple 2")
@@ -82,7 +83,7 @@ class FindTheOddImplTest {
     assertThat(actual)
         .isEqualTo(
             new SafestPath(
-                0.19,
+                0.81,
                 List.of(
                     new travel("Hoth", 6, Action.JUMP),
                     new travel("Hoth", 1, Action.WAIT),
@@ -104,7 +105,7 @@ class FindTheOddImplTest {
     assertThat(actual)
         .isEqualTo(
             new SafestPath(
-                0.1,
+                0.9,
                 List.of(
                     new travel("Dagobah", 6, Action.JUMP),
                     new travel("Dagobah", 1, Action.WAIT),
@@ -127,9 +128,10 @@ class FindTheOddImplTest {
     assertThat(actual)
         .isEqualTo(
             new SafestPath(
-                0.1,
+                1.0,
                 List.of(
                     new travel("Dagobah", 6, Action.JUMP),
+                    new travel("Dagobah", 1, Action.WAIT),
                     new travel("Dagobah", 1, Action.WAIT),
                     new travel("Hoth", 1, Action.JUMP),
                     new travel("Endor", 1, Action.JUMP))));

@@ -32,33 +32,19 @@ class CostFunctionImplTest {
     paths =
         List.of(
             new Path(
-                List.of(new Way("Tatooine", "Hoth", 6), new Way("Hoth", "Endor", 1)),
+                List.of(
+                    new Way("Tatouine", "Dagobah", 6),
+                    new Way("Dagobah", "Hoth", 1),
+                    new Way("Hoth", "Endor", 1)),
                 "Tatooine",
                 "Endor"));
     falcon = new Falcon(6);
-    bountyHunters = List.of(new BountyHunter(new Planet("Hoth"), 6));
+    bountyHunters =
+        List.of(
+            new BountyHunter(new Planet("Hoth"), 6),
+            new BountyHunter(new Planet("Hoth"), 7),
+            new BountyHunter(new Planet("Hoth"), 8));
     costFunction = new CostFunctionImpl();
-  }
-
-  @Test
-  @DisplayName("Should compute odd with out bounty hunter")
-  void shouldComputeOddWithOutBountyHunter() {
-    // Given
-    CountDown countDown = new CountDown(10);
-
-    // When
-    Optional<SafestPath> actual =
-        costFunction.giveMeTheOdds(paths, countDown, falcon, bountyHunters);
-
-    // Then
-    assertThat(actual).isPresent();
-    assertThat(actual.get().odds()).isCloseTo(0.1, Assertions.offset(0.01));
-
-    assertThat(actual.get().travels())
-        .containsExactly(
-            new travel("Hoth", 6, Action.JUMP),
-            new travel("Hoth", 1, Action.WAIT),
-            new travel("Endor", 1, Action.JUMP));
   }
 
   @Test
@@ -73,5 +59,29 @@ class CostFunctionImplTest {
 
     // Then
     assertThat(actual).isEmpty();
+  }
+
+  @Test
+  @DisplayName("Should find a perfect solution")
+  void shouldFindAPerfectSolution() {
+    // Given
+    var countdown = new CountDown(10);
+
+    // When
+
+    Optional<SafestPath> actual =
+        costFunction.giveMeTheOdds(paths, countdown, falcon, bountyHunters);
+
+    // Then
+    assertThat(actual).isPresent();
+    assertThat(actual.get().odds()).isCloseTo(0.0, Assertions.offset(0.01));
+
+    assertThat(actual.get().travels())
+        .containsExactly(
+            new travel("Dagobah", 6, Action.JUMP),
+            new travel("Dagobah", 1, Action.WAIT),
+            new travel("Dagobah", 1, Action.WAIT),
+            new travel("Hoth", 1, Action.JUMP),
+            new travel("Endor", 1, Action.JUMP));
   }
 }

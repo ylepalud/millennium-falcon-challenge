@@ -40,6 +40,7 @@ public class FindTheOddImpl implements FindTheOdd {
             missionConstraints.countDown(),
             missionConstraints.falcon(),
             missionConstraints.bountyHunters())
-        .orElse(new SafestPath(1.0, List.of()));
+        .map(p -> new SafestPath(1 - p.odds(), p.travels()))
+        .orElse(new SafestPath(0.0, List.of()));
   }
 }
