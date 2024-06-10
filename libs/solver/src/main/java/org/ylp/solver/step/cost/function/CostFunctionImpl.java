@@ -22,7 +22,7 @@ public class CostFunctionImpl implements CostFunction {
 
     return paths.stream()
         .flatMap(path -> computeCostForGivenPath(path, countDown, falcon, hunters))
-        .min(Comparator.comparing(SafestPath::odds));
+        .max(Comparator.comparing(SafestPath::odds));
   }
 
   public Stream<SafestPath> computeCostForGivenPath(

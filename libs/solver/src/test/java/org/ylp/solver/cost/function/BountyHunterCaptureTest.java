@@ -12,7 +12,7 @@ class BountyHunterCaptureTest {
 
   @ParameterizedTest
   @CsvSource({
-    "0,0.0", "1,0.1", "2,0.19", "3,0.271", "4,0.343", "5,0.409",
+    "0,1.0", "1,0.9", "2,0.81", "3,0.729", "4,0.656", "5,0.590",
   })
   @DisplayName("Should compute bounty hunter capture probability")
   void shouldComputeBountyHunterCaptureProbability(int hit, double expected) {

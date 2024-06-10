@@ -3,6 +3,10 @@ package org.ylp.solver.step.cost.function;
 public class BountyHunterCapture {
 
   public static double costFunction(int hit) {
+    return 1.0 - costFunctionRec(hit);
+  }
+
+  private static double costFunctionRec(int hit) {
     if (hit == 0) {
       return 0.0;
     }
@@ -16,6 +20,6 @@ public class BountyHunterCapture {
 
     var partialResult = upperPart / downPart;
 
-    return costFunction(hit - 1) + partialResult;
+    return costFunctionRec(hit - 1) + partialResult;
   }
 }
