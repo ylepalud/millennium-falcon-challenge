@@ -1,5 +1,7 @@
 package org.ylp;
 
+import static org.ylp.solver.utils.FileUtil.readFile;
+
 import java.util.List;
 import java.util.concurrent.Callable;
 import org.ylp.model.Empire;
@@ -11,8 +13,6 @@ import org.ylp.solver.model.Falcon;
 import org.ylp.solver.model.MissionConstraints;
 import org.ylp.solver.model.Planet;
 import org.ylp.solver.step.Solver;
-import org.ylp.solver.utils.FileUtil;
-import org.ylp.solver.utils.Mapper;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
@@ -51,11 +51,6 @@ public class Cli implements Callable<Double> {
     return empire.bountyHunters().stream()
         .map(a -> new BountyHunter(new Planet(a.planet()), a.day()))
         .toList();
-  }
-
-  private <T> T readFile(String fileName, Class<T> clazz) {
-    var falconJson = FileUtil.readResource(fileName);
-    return Mapper.map(falconJson, clazz);
   }
 
   public static void main(String[] args) {

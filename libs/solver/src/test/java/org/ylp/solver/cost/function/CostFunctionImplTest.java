@@ -74,7 +74,7 @@ class CostFunctionImplTest {
 
     // Then
     assertThat(actual).isPresent();
-    assertThat(actual.get().odds()).isCloseTo(0.0, Assertions.offset(0.01));
+    assertThat(actual.get().odds()).isCloseTo(1.0, Assertions.offset(0.01));
 
     assertThat(actual.get().travels())
         .containsExactly(

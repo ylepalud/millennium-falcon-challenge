@@ -5,6 +5,12 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 
 public class FileUtil {
+
+  public static <T> T readFile(String fileName, Class<T> clazz) {
+    var falconJson = FileUtil.readResource(fileName);
+    return Mapper.map(falconJson, clazz);
+  }
+
   public static String readResource(String resourcePath) {
     try (var inputStream = readResourceInputStream(resourcePath)) {
       if (inputStream == null) {

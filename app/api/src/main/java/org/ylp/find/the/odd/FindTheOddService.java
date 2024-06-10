@@ -16,16 +16,18 @@ import org.ylp.solver.model.Planet;
 import org.ylp.solver.step.Solver;
 import org.ylp.solver.step.cost.function.SafestPath;
 import org.ylp.solver.step.cost.function.travel;
+import org.ylp.solver.utils.FileUtil;
 
 @Service
 public class FindTheOddService {
+  private static final String MILLENIUM_FALCON_RESSOURCE = "millenium-falcon.json";
 
   public SolvePost200Response findSolution(SolvePostRequest request) {
     var bountyHunter = mapHunter(request);
 
     CountDown countDown = mapCountDown(request);
 
-    var milleniumFalcon = MilleniumFalconConfigFileReader.readMilleniumFalconConfigFile();
+    var milleniumFalcon = FileUtil.readFile(MILLENIUM_FALCON_RESSOURCE, MilleniumFalcon.class);
 
     Direction direction = new Direction(milleniumFalcon.departure(), milleniumFalcon.arrival());
     MissionConstraints missionConstraints =
