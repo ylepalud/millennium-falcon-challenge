@@ -14,9 +14,9 @@ public class Mapper {
 
   private Mapper() {}
 
-  public static <T> T map(String fileName, Class<T> clazz) {
+  public static <T> T map(String contentFile, Class<T> clazz) {
     try {
-      return objectMapper.readValue(fileName, clazz);
+      return objectMapper.readValue(contentFile, clazz);
     } catch (JsonProcessingException e) {
       LOGGER.error(e.getMessage(), e);
       throw new RuntimeException(e);

@@ -15,3 +15,5 @@ Then you will with the binary in the build folder
 Otherwise you can run the cli using build JAR
 
 java -jar cli.jar pathToFalcon pathToEmpireFile
+
+You can also run the application using Intellij launcher
