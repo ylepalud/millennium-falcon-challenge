@@ -35,7 +35,7 @@ export class ChallengeResponse implements OnInit, OnChanges {
 
   mapOddToMessage(odd: number): string {
     if (0 < odd && odd < 1) {
-      return `Beware, the path isn't not safe. You have ${odd} chance to succeed`;
+      return `Beware, the path isn't safe. You have ${odd} chance to succeed`;
     }
     if (odd <=0 ) {
       return `You're chance to succeed are null ... The empire will destroy Endor`;

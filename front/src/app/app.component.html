@@ -1,6 +1,12 @@
 <main class="main">
-  <app-file-reader (empireFileChange)="handleEmpireFileUpload($event)"/>
-  <challenge-response *ngIf="request" [request]="request"/>
+  <div id='stars'></div>
+  <div id='stars2'></div>
+  <div id='stars3'></div>
+
+  <div id="title">
+    <app-file-reader (empireFileChange)="handleEmpireFileUpload($event)"/>
+    <challenge-response *ngIf="request" [request]="request"/>
+  </div>
 </main>
 
 <router-outlet />

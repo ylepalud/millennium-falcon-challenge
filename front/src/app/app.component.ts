@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, ViewContainerRef} from '@angular/core';
+import {Component} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {ChallengeResponse} from "./challenge-response/challenge-response";
 import {SolveRequest} from "./api/model/solve-request";
