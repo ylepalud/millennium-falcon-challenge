@@ -1,5 +1,7 @@
 # API
 
+millennium-falcon.json is embedded in resources folder
+
 Run ./gradlew build to install dependencies
 
 Run the application. The application will run on http://localhost:8080

@@ -12,6 +12,11 @@
 
 ### What next ?
 
+* The front end was done quickly. The style needs to be revised and common reusable components need to be created. Had a linter etc ...
+* Enable application customization through configuration, particularly for front-end and API URLs
+* Add CI/CD
+* Add code quality plugin: Sonar, Jacoco, Owasp
+* Depending on how we will deploy, we could provide docker image for front end and back
 
 ## What are the odds?
 
