@@ -8,11 +8,16 @@
 
 ### [CLI's documentation](app%2Fcli%2FREADME.md)
 
-### [Front documentation](front%2FREADME.md)
+### [Front end's documentation](front%2FREADME.md)
 
 ### What next ?
 
+Every universe.db files are equals. I decided to embed only one in lib solver resources 
+
 * The front end was done quickly. The style needs to be revised and common reusable components need to be created. Had a linter etc ...
+* Add unit test on the front end part
+* Add E2E test using Selenium or cypress
+* Add integration test on the API
 * Enable application customization through configuration, particularly for front-end and API URLs
 * Add CI/CD
 * Add code quality plugin: Sonar, Jacoco, Owasp
