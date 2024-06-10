@@ -1,5 +1,9 @@
 # API
 
+Run ./gradlew build to install dependencies
+
+Run the application. The application will run on http://localhost:8080
+
 ## Open api specification 
 [api.yaml](src%2Fmain%2Fresources%2Fapi.yaml)
 

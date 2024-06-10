@@ -8,6 +8,8 @@
 
 ### [CLI's documentation](app%2Fcli%2FREADME.md)
 
+### [Front documentation](front%2FREADME.md)
+
 ### What next ?
 
 
