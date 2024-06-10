@@ -1,0 +1,129 @@
+POST http://localhost:8080/solve
+Content-Type: application/json
+Content-Length: 123
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "countDown": 10,
+  "bountyHunters": [
+    {"planet": "Tatooine", "day": 4 },
+    {"planet": "Dagobah", "day": 5 }
+  ]
+}
+
+<> 2024-06-10T083806.200.json
+
+###
+
+POST http://localhost:8080/solve
+Content-Type: application/json
+Content-Length: 123
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "countDown": 10,
+  "bountyHunters": [
+    {"planet": "Tatooine", "day": 4 },
+    {"planet": "Dagobah", "day": 5 }
+  ]
+}
+
+<> 2024-06-10T083023.200.json
+
+###
+
+POST http://localhost:8080/solve
+Content-Type: application/json
+Content-Length: 123
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "countDown": 10,
+  "bountyHunters": [
+    {"planet": "Tatooine", "day": 4 },
+    {"planet": "Dagobah", "day": 5 }
+  ]
+}
+
+<> 2024-06-09T222524.200.json
+
+###
+
+POST http://localhost:8080/solve
+Content-Type: application/json
+Content-Length: 123
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "countDown": 10,
+  "bountyHunters": [
+    {"planet": "Tatooine", "day": 4 },
+    {"planet": "Dagobah", "day": 5 }
+  ]
+}
+
+<> 2024-06-09T222425.200.json
+
+###
+
+POST http://localhost:8080/solve
+Content-Type: application/json
+Content-Length: 123
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "countDown": 10,
+  "bountyHunters": [
+    {"planet": "Tatooine", "day": 4 },
+    {"planet": "Dagobah", "day": 5 }
+  ]
+}
+
+<> 2024-06-09T212744.200.json
+
+###
+
+POST http://localhost:8080/solve
+Content-Type: application/json
+Content-Length: 122
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "countDown": 0,
+  "bountyHunters": [
+    {"planet": "Tatooine", "day": 4 },
+    {"planet": "Dagobah", "day": 5 }
+  ]
+}
+
+<> 2024-06-09T212735.200.json
+
+###
+
+POST http://localhost:8080/solve
+Content-Type: application/json
+Content-Length: 19
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "dataset": ""
+}
+
+<> 2024-06-09T204414.200.json
+
+###
+
