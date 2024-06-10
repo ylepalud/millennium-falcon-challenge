@@ -1,0 +1,15 @@
+<ng-container>
+  <h2>Empire secret file</h2>
+  <p *ngIf="!fileContent">Select a file to start the mission</p>
+  <input type="file" (change)="onFileSelected($event)" />
+  <p *ngIf="errorMessage">{{ errorMessage }}</p>
+  <div *ngIf="fileContent">
+    <p>{{ fileContent.countdown }} days before the empire destroy Endor</p>
+    <ul>
+      @for (hunter of fileContent.bounty_hunters; track hunter.day) {
+        <li>Hunters are in {{ hunter.planet }} at {{ hunter.day }}</li>
+      }
+    </ul>
+  </div>
+  <button *ngIf="fileContent" (click)="submitFile()">Save the galaxy</button>
+</ng-container>

@@ -6,8 +6,9 @@ import {way} from "../api/model/way";
   standalone: true,
   imports: [],
   template: `
+    <h3>This is the way</h3>
       @for (way of ways; track way.step; let count = $count) {
-        <li>In {{ way.planet }} do a {{ way.action.toLocaleLowerCase() }} for {{ way.timeTravel }} day{{ count <= 0 ? "s" : "" }} </li>
+        <li>{{ way.action.toLocaleLowerCase() }} {{ way.action.toLocaleLowerCase() === 'jump' ? "to" : "on" }} {{ way.planet }} for {{ way.timeTravel }} day{{ count <= 0 ? "s" : "" }} </li>
       } @empty {
         <li>There is no hope ...</li>
       }

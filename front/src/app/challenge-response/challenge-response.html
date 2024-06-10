@@ -1,12 +1,5 @@
-`
 <ng-container *ngIf="solveResponse$ | async as solveResponse">
-  <p>Name: {{ solveResponse.odd }}</p>
-  <ul>
-    @for (path of solveResponse.path | async ; track path.step; let count = $count) {
-      <li>In {{ path.planet }} do a {{ path.action }} for {{ path.timeTravel }} day{{ count <= 0 ? "s" : "" }} </li>
-    } @empty {
-      <li>There is no hope ...</li>
-    }
-  </ul>
+  <h3>Give me the odd</h3>
+  <p>{{ mapOddToMessage(solveResponse.odd) }}</p>
+  <app-path [ways]="solveResponse.path"></app-path>
 </ng-container>
-`

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {SolveResponse} from "../api/model/solve-response";
 import {BackendService} from "../api/backend.service";
 import {SolveRequest} from "../api/model/solve-request";
@@ -15,15 +15,10 @@ import {PathComponent} from "../path/path.component";
     NgFor,
     PathComponent
   ],
-  template: `
-    <ng-container *ngIf="solveResponse$ | async as solveResponse">
-      <p>{{ mapOddToMessage(solveResponse.odd) }}</p>
-      <app-path [ways]="solveResponse.path"></app-path>
-    </ng-container>
-  `,
+  templateUrl: './challenge-response.html',
   styleUrl: './challenge-response.css'
 })
-export class ChallengeResponse implements OnInit {
+export class ChallengeResponse implements OnInit, OnChanges {
 
   @Input() request!: SolveRequest;
   solveResponse$!: Observable<SolveResponse>;
@@ -34,12 +29,16 @@ export class ChallengeResponse implements OnInit {
     this.solveResponse$ = this.backendService.solveChallenge(this.request);
   }
 
+  ngOnChanges(): void {
+    this.solveResponse$ = this.backendService.solveChallenge(this.request);
+  }
+
   mapOddToMessage(odd: number): string {
     if (0 < odd && odd < 1) {
       return `Beware, the path isn't not safe. You have ${odd} chance to succeed`;
     }
     if (odd <=0 ) {
-      return `You chance to succeed are null... The empire will destroy Endor`;
+      return `You're chance to succeed are null ... The empire will destroy Endor`;
     }
     return `Nobody can't stop us !! We will succeed before the death star annihilates Endor`;
   }
