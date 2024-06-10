@@ -6,6 +6,7 @@ import com.ylp.model.SolvePost200Response;
 import com.ylp.model.SolvePost200ResponsePathInner;
 import com.ylp.model.SolvePostRequest;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.springframework.stereotype.Service;
 import org.ylp.solver.model.BountyHunter;
 import org.ylp.solver.model.CountDown;
@@ -39,15 +40,18 @@ public class FindTheOddService {
   private SolvePost200Response mapResponse(SafestPath solve) {
     var response = new SolvePost200Response();
     response.setOdd(solve.odds());
-    response.setPath(toStream(solve.travels()).map(FindTheOddService::mapPath).toList());
+    AtomicInteger step = new AtomicInteger();
+    response.setPath(
+        toStream(solve.travels()).map(travel -> mapPath(travel, step.getAndIncrement())).toList());
     return response;
   }
 
-  private static SolvePost200ResponsePathInner mapPath(travel travel) {
+  private static SolvePost200ResponsePathInner mapPath(travel travel, int step) {
     var path = new SolvePost200ResponsePathInner();
     path.action(travel.action().name());
     path.setPlanet(travel.planet());
     path.setTimeTravel(travel.time());
+    path.setStep(step);
     return path;
   }
 

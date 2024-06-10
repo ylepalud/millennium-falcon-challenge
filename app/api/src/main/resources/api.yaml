@@ -55,6 +55,8 @@ paths:
                     items:
                       type: object
                       properties:
+                        step:
+                          type: integer
                         planet:
                           type: string
                         timeTravel:

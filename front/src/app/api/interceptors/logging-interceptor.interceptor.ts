@@ -3,8 +3,13 @@ import {tap} from "rxjs";
 
 export const loggingInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(tap(event => {
-    if (event.type === HttpEventType.Response) {
-      console.log(req.url, 'returned a response with status', event.status);
+    switch (event.type) {
+      case HttpEventType.Sent:
+        console.log(req.url, 'requesting the backend', event.type);
+        break;
+      case HttpEventType.Response:
+        console.log(req.url, 'returned a response with status', event.status);
+        break;
     }
   }));
 };
